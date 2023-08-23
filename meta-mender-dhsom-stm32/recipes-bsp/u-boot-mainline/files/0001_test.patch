@@ -1,0 +1,84 @@
+diff -r -u /media/jernej/d/vanilla/kas-dhsom/build/tmp-glibc/work/dh_stm32mp1_dhcom_drc02-oe-linux-gnueabi/u-boot-mainline/1_2023.07.02-r0/old-src/configs/stm32mp15_dhcom_basic_defconfig /media/jernej/d/vanilla/kas-dhsom/build/tmp-glibc/work/dh_stm32mp1_dhcom_drc02-oe-linux-gnueabi/u-boot-mainline/1_2023.07.02-r0/git/configs/stm32mp15_dhcom_basic_defconfig
+--- a/configs/stm32mp15_dhcom_basic_defconfig	2023-08-22 13:45:08.903553562 +0000
++++ b/configs/stm32mp15_dhcom_basic_defconfig	2023-08-22 13:45:51.467517601 +0000
+@@ -4,14 +4,12 @@
+ CONFIG_HAS_CUSTOM_SYS_INIT_SP_ADDR=y
+ CONFIG_CUSTOM_SYS_INIT_SP_ADDR=0xc0100000
+ CONFIG_SF_DEFAULT_SPEED=50000000
+-CONFIG_ENV_SIZE=0x4000
+ CONFIG_ENV_SECT_SIZE=0x1000
+ CONFIG_SPL_DM_SPI=y
+ CONFIG_DEFAULT_DEVICE_TREE="stm32mp15xx-dhcom-pdk2"
+ CONFIG_SPL_TEXT_BASE=0x2FFC2500
+ CONFIG_SYS_PROMPT="STM32MP> "
+ CONFIG_SPL_MMC=y
+-CONFIG_BOOTCOUNT_BOOTLIMIT=3
+ CONFIG_SYS_BOOTCOUNT_ADDR=0x5C00A14C
+ CONFIG_SPL_STACK=0x30000000
+ CONFIG_SPL=y
+@@ -32,7 +30,6 @@
+ CONFIG_SPL_FIT_SOURCE="board/dhelectronics/dh_stm32mp1/u-boot-dhcom.its"
+ CONFIG_DISTRO_DEFAULTS=y
+ CONFIG_BOOTDELAY=1
+-CONFIG_BOOTCOMMAND="run bootcmd_stm32mp"
+ CONFIG_CONSOLE_MUX=y
+ CONFIG_BOARD_EARLY_INIT_F=y
+ CONFIG_SPL_FOOTPRINT_LIMIT=y
+@@ -96,8 +93,6 @@
+ CONFIG_OF_LIVE=y
+ CONFIG_OF_LIST="stm32mp15xx-dhcom-pdk2 stm32mp15xx-dhcom-drc02 stm32mp15xx-dhcom-picoitx"
+ CONFIG_OF_SPL_REMOVE_PROPS="interrupts interrupt-names interrupts-extended interrupt-controller \\\#interrupt-cells interrupt-parent dmas dma-names assigned-clocks assigned-clock-rates assigned-clock-parents hwlocks"
+-CONFIG_ENV_IS_IN_SPI_FLASH=y
+-CONFIG_SYS_REDUNDAND_ENVIRONMENT=y
+ CONFIG_SYS_RELOC_GD_ENV_ADDR=y
+ CONFIG_SPL_ENV_IS_NOWHERE=y
+ CONFIG_VERSION_VARIABLE=y
+@@ -108,7 +103,6 @@
+ CONFIG_SERVERIP="192.168.1.1"
+ CONFIG_STM32_ADC=y
+ CONFIG_SPL_BLOCK_CACHE=y
+-CONFIG_BOOTCOUNT_LIMIT=y
+ CONFIG_SYS_BOOTCOUNT_MAGIC=0xB0C40000
+ CONFIG_GPIO_HOG=y
+ CONFIG_DM_HWSPINLOCK=y
+@@ -177,3 +171,38 @@
+ # CONFIG_BINMAN_FDT is not set
+ CONFIG_FDT_FIXUP_PARTITIONS=y
+ # CONFIG_EFI_LOADER is not set
++CONFIG_ENV_SIZE=0x20000
++# CONFIG_ENV_RANGE is not set
++CONFIG_ENV_OFFSET=0x800000
++CONFIG_ENV_OFFSET_REDUND=0x1000000
++CONFIG_SYS_REDUNDAND_ENVIRONMENT=y
++CONFIG_MMC=y
++CONFIG_SYS_MMC_ENV_DEV=0
++CONFIG_SYS_MMC_ENV_PART=0
++# CONFIG_ENV_IS_NOWHERE is not set
++# CONFIG_ENV_IS_IN_EEPROM is not set
++# CONFIG_ENV_IS_IN_FAT is not set
++# CONFIG_ENV_IS_IN_EXT4 is not set
++# CONFIG_ENV_IS_IN_FLASH is not set
++# CONFIG_ENV_IS_IN_NAND is not set
++# CONFIG_ENV_IS_IN_NVRAM is not set
++# CONFIG_ENV_IS_IN_ONENAND is not set
++# CONFIG_ENV_IS_IN_REMOTE is not set
++# CONFIG_ENV_IS_IN_SPI_FLASH is not set
++# CONFIG_ENV_IS_IN_UBI is not set
++CONFIG_ENV_IS_IN_MMC=y
++CONFIG_CMD_EXT4=y
++CONFIG_CMD_FS_GENERIC=y
++# CONFIG_BOOTCOUNT_BOOTLIMIT is not set
++# CONFIG_BOOTCOUNT_GENERIC is not set
++# CONFIG_BOOTCOUNT_EXT is not set
++# CONFIG_BOOTCOUNT_AM33XX is not set
++# CONFIG_BOOTCOUNT_AM33XX_NVMEM is not set
++# CONFIG_BOOTCOUNT_RAM is not set
++# CONFIG_BOOTCOUNT_I2C is not set
++# CONFIG_BOOTCOUNT_AT91 is not set
++# CONFIG_BOOTCOUNT_MEM is not set
++# CONFIG_BOOTCOUNT_ALEN is not set
++CONFIG_BOOTCOUNT_LIMIT=y
++CONFIG_BOOTCOUNT_ENV=y
++# CONFIG_BOOTCOMMAND is not set
+Binary files /media/jernej/d/vanilla/kas-dhsom/build/tmp-glibc/work/dh_stm32mp1_dhcom_drc02-oe-linux-gnueabi/u-boot-mainline/1_2023.07.02-r0/old-src/.git/index and /media/jernej/d/vanilla/kas-dhsom/build/tmp-glibc/work/dh_stm32mp1_dhcom_drc02-oe-linux-gnueabi/u-boot-mainline/1_2023.07.02-r0/git/.git/index differ
+Only in /media/jernej/d/vanilla/kas-dhsom/build/tmp-glibc/work/dh_stm32mp1_dhcom_drc02-oe-linux-gnueabi/u-boot-mainline/1_2023.07.02-r0/git: .scmversion

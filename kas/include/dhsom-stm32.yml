@@ -1,0 +1,68 @@
+header:
+  version: 11
+
+distro: nodistro
+
+target:
+  - core-image-minimal
+
+repos:
+  poky:
+    url: https://git.yoctoproject.org/git/poky
+    refspec: kirkstone
+    layers:
+      meta:
+
+  meta-mainline-common:
+    refspec: kirkstone
+    url: https://source.denx.de/denx/meta-mainline-common.git
+
+  meta-dhsom-stm32-bsp:
+    url: https://github.com/dh-electronics/meta-dhsom-stm32-bsp.git
+    refspec: kirkstone
+  
+  meta-openembedded:
+    url: https://git.openembedded.org/meta-openembedded
+    refspec: kirkstone
+    layers:
+      meta-oe:
+      meta-networking:
+      meta-python:  
+  
+  meta-mender:
+    url: https://github.com/mendersoftware/meta-mender.git
+    refspec: kirkstone
+    layers:
+      meta-mender-core:
+  
+  meta-mender-comunity:
+    url: https://github.com/jernejnose/meta-mender-community.git
+    refspec: kirkstone
+    layers:
+      meta-mender-dhsom-stm32:
+
+bblayers_conf_header:
+  standard: |
+    POKY_BBLAYERS_CONF_VERSION = "2"
+    BBPATH = "${TOPDIR}"
+    BBFILES ?= ""
+
+local_conf_header:
+  standard: |
+    BB_HASHSERVE = "auto"
+    BB_SIGNATURE_HANDLER = "OEEquivHash"
+  
+  base: |
+    CONF_VERSION = "2"
+    PACKAGE_CLASSES = "package_ipk"
+    INIT_MANAGER = "systemd"
+    CONFIG_DEFAULT_DEVICE_TREE = "stm32mp153c-dhcom-drc02.dtb"
+  mender_device_integration: |
+    INHERIT += "mender-full"
+    MENDER_FEATURES_ENABLE:append = " mender-uboot mender-image mender-image-sd"
+    MENDER_FEATURES_DISABLE:append = " mender-grub mender-image-uefi"
+    MENDER_STORAGE_TOTAL_SIZE_MB = "4096"
+
+  buildinfo: |
+    INHERIT += " image-buildinfo"
+    IMAGE_BUILDINFO_VARS:append = " ARM_INSTRUCTION_SET BB_VERSION BUILD_SYS COMMON_FEATURES DEFAULTTUNE DISTRO DISTRO_FEATURES DISTRO_NAME DISTRO_VERSION IMAGE_BASENAME IMAGE_FEATURES KERNEL_DEVICETREE MACHINE MACHINEOVERRIDES MACHINE_FEATURES NATIVELSBSTRING PREFERRED_PROVIDER_virtual/bootloader PREFERRED_PROVIDER_virtual/kernel PREFERRED_PROVIDER_virtual/mesa SERIAL_CONSOLE SOC_FAMILY TARGET_FPU TARGET_SYS TUNE_FEATURES TUNE_PKGARCH UBOOT_DTBO_LOADADDRESS UBOOT_DTB_LOADADDRESS UBOOT_MACHINE"
