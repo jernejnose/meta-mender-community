@@ -35,7 +35,23 @@ URI: https://git.openembedded.org/meta-openembedded
 branch: kirkstone
 ```
 ## Quick start
+ 
+1. Install KAS 
+```
+pip3 install kas
+```
 
-The following commands will setup the environment and allow you to build images
-that have Mender integrated.
+2. Clone meta-mender-community 
+```
+git clone https://github.com/mendersoftware/meta-mender-community
+```
 
+3. Create a build directory and change into it:
+```
+mkdir -p meta-mender-community/dhcom-build && cd meta-mender-community/dhcom-build
+```
+
+4. Run kas build:
+```
+kas build ../kas/dh-stm32mp1-dhcom-drc02.yml.yml
+```
