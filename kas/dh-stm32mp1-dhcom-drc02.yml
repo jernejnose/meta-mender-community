@@ -5,6 +5,11 @@ header:
 
 machine: dh-stm32mp1-dhcom-drc02
 
+repos:
+  meta-mender-community:
+    layers:
+      meta-mender-dhsom-stm32:
+
 local_conf_header:  
   mender_dynamic: |
     MENDER_ARTIFACT_NAME = "DRC02-kas-build"

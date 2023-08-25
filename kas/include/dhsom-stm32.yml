@@ -1,8 +1,10 @@
 header:
-  version: 2
+  version: 11
 
 distro: nodistro
-target: core-image-base
+
+target:
+  - core-image-base
 
 repos:
   poky:
@@ -10,13 +12,13 @@ repos:
     refspec: kirkstone
     layers:
       meta:
-  
+
   meta-mainline-common:
     url: https://source.denx.de/denx/meta-mainline-common.git
     refspec: kirkstone
 
   meta-dhsom-stm32-bsp:
-    url: https://github.com/dh-electronics/meta-dhsom-stm32-bsp.git 
+    url: https://github.com/dh-electronics/meta-dhsom-stm32-bsp.git
     refspec: kirkstone
   
   meta-mender:
@@ -24,7 +26,7 @@ repos:
     refspec: kirkstone
     layers:
       meta-mender-core:
-
+  
 bblayers_conf_header:
   standard: |
     POKY_BBLAYERS_CONF_VERSION = "2"
@@ -32,44 +34,13 @@ bblayers_conf_header:
     BBFILES ?= ""
 
 local_conf_header:
-  kernel: |
-    PREFERRED_PROVIDER_virtual/kernel = "linux-stable"
-  enable_systemd: |
-    DISTRO_FEATURES:append = " systemd"
-    DISTRO_FEATURES_BACKFILL_CONSIDERED = "sysvinit"
-    VIRTUAL-RUNTIME_init_manager = "systemd"
-    VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
-  mender_device_integration: |
-    INHERIT += "mender-full"
-    MENDER_FEATURES_ENABLE:append = " mender-uboot mender-image mender-image-sd"
-    MENDER_FEATURES_DISABLE:append = " mender-grub mender-image-uefi"
-    MENDER_STORAGE_TOTAL_SIZE_MB = "4096"
-  diskmon: |
-    BB_DISKMON_DIRS = "\
-    STOPTASKS,${TMPDIR},1G,100K \
-    STOPTASKS,${DL_DIR},1G,100K \
-    STOPTASKS,${SSTATE_DIR},1G,100K \
-    STOPTASKS,/tmp,100M,100K \
-    HALT,${TMPDIR},100M,1K \
-    HALT,${DL_DIR},100M,1K \
-    HALT,${SSTATE_DIR},100M,1K \
-    HALT,/tmp,10M,1K"
-  uboot: |
-    PREFERRED_PROVIDER_virtual/bootloader = "u-boot-mainline"
-    PREFERRED_PROVIDER_u-boot = "u-boot-dhsom"
-    PREFERRED_VERSION_u-boot-dhsom = "2018.05"
-    PREFERRED_PROVIDER_u-boot-tools = "u-boot-dhsom-tools"
-    PREFERRED_PROVIDER_u-boot-tools-native = "u-boot-dhsom-tools-native"
-    IMAGE_BOOTLOADER = "u-boot"
-  bootpart: |
-    BOOT_SPACE = "51200"
-    BOOTDD_VOLUME_ID = "boot"
-    IMAGE_BOOT_FILES:append = " 800x480_done.bmp 800x480_error.bmp 800x480_progress.bmp splash.bmp boot.scr"
-    WKS_FILE = "dhsom-uboot-bootpart.wks"
   standard: |
     BB_HASHSERVE = "auto"
     BB_SIGNATURE_HANDLER = "OEEquivHash"
-    CONF_VERSION = "2"
+  mender_device_integration: |
+    INHERIT += "mender-full"
+    MENDER_FEATURES_ENABLE:append = " mender-uboot mender-image"
+    MENDER_FEATURES_DISABLE:append = " mender-grub mender-image-uefi"
   buildinfo: |
     INHERIT += " image-buildinfo"
     IMAGE_BUILDINFO_VARS:append = " ARM_INSTRUCTION_SET BB_VERSION BUILD_SYS COMMON_FEATURES DEFAULTTUNE DISTRO DISTRO_FEATURES DISTRO_NAME DISTRO_VERSION IMAGE_BASENAME IMAGE_FEATURES KERNEL_DEVICETREE MACHINE MACHINEOVERRIDES MACHINE_FEATURES NATIVELSBSTRING PREFERRED_PROVIDER_virtual/bootloader PREFERRED_PROVIDER_virtual/kernel PREFERRED_PROVIDER_virtual/mesa SERIAL_CONSOLE SOC_FAMILY TARGET_FPU TARGET_SYS TUNE_FEATURES TUNE_PKGARCH UBOOT_DTBO_LOADADDRESS UBOOT_DTB_LOADADDRESS UBOOT_MACHINE"
