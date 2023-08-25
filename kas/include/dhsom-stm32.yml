@@ -12,6 +12,7 @@ repos:
     refspec: kirkstone
     layers:
       meta:
+      meta-poky:
 
   meta-mainline-common:
     url: https://source.denx.de/denx/meta-mainline-common.git
@@ -37,9 +38,15 @@ local_conf_header:
   standard: |
     BB_HASHSERVE = "auto"
     BB_SIGNATURE_HANDLER = "OEEquivHash"
+  base: |
+    PACKAGE_CLASSES = "package_ipk"
+    INIT_MANAGER = "systemd"
+    CONFIG_DEFAULT_DEVICE_TREE = "stm32mp153c-dhcom-drc02.dtb"
+  uboot:
+    PREFERRED_PROVIDER_u-boot = "u-boot-mainline"
   mender_device_integration: |
     INHERIT += "mender-full"
-    MENDER_FEATURES_ENABLE:append = " mender-uboot mender-image"
+    MENDER_FEATURES_ENABLE:append = " mender-uboot mender-image-sd"
     MENDER_FEATURES_DISABLE:append = " mender-grub mender-image-uefi"
   buildinfo: |
     INHERIT += " image-buildinfo"
